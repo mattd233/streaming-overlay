@@ -1,0 +1,4 @@
+<template>
+  <SuperchatList/>
+</template>
+
