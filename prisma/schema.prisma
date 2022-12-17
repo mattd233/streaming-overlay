@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,31 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model gift {
+  id      Int      @id @default(autoincrement())
+  nn      String?  @db.VarChar(30)
+  gfid    Int?
+  gfcnt   Int?
+  expired Boolean? @default(false)
+  ts      DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model playlist {
+  id    Int      @id @default(autoincrement())
+  nn    String?  @db.VarChar(30)
+  title String?  @db.VarChar(100)
+  sang  Boolean? @default(false)
+  ts    DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model sc {
+  id       Int      @id @default(autoincrement())
+  nn       String?  @db.VarChar(30)
+  avatar   String?  @db.VarChar(100)
+  total_pc Float?
+  txt      String?  @db.VarChar(100)
+  expired  Boolean? @default(false)
+  ts       DateTime @default(now()) @db.Timestamptz(6)
 }
