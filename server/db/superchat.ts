@@ -13,10 +13,10 @@ const getValidSuperchats = () => {
   })
 }
 
-const expireSuperchat = (id: number)  => {
-  return prisma.superchat.update({
+const expireSuperchat = async(id: number)  => {
+  await prisma.superchat.update({
     where: {
-      id
+      id: Number(id)
     },
     data: {
       expired: true
@@ -24,8 +24,8 @@ const expireSuperchat = (id: number)  => {
   })
 }
 
-const deleteAllSuperchats = ()  => {
-  return prisma.superchat.deleteMany();
+const deleteAllSuperchats = async()  => {
+  await prisma.superchat.deleteMany();
 }
 
 export { getAllSuperchats, getValidSuperchats, expireSuperchat, deleteAllSuperchats };

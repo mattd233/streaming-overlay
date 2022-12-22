@@ -1,5 +1,10 @@
 import { deleteAllSuperchats } from '~~/server/db/superchat';
 
 export default defineEventHandler(async(event) => {
-  deleteAllSuperchats();
+  try {
+    await deleteAllSuperchats();
+    return 'success';
+  } catch (error) {
+    return 'failed';
+  }
 })

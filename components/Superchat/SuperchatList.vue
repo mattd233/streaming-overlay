@@ -8,7 +8,7 @@
         <th>sc内容</th>
         <th>日期</th>
       </tr>
-      <tr v-for="sc in scList" v-bind:key="sc.id" class="sc-item">
+      <tr v-for="sc in superchats" v-bind:key="sc.id" class="sc-item">
         <td>
           <!-- <img class="avatar" :src="`https://apic.douyucdn.cn/upload/${sc.avatar}_small.jpg`" alt="avatar" loading="lazy" />  -->
           <span class="nickname"> {{ sc.belongs_to_user }} </span>
@@ -21,37 +21,14 @@
   </div>
 </template>
 
-<script>
-import DataService from "../../service/DataService";
-import moment from "moment";
+<script setup>
+import moment from 'moment';
 
-export default {
-  data() {
-    return {
-      scList: [],
-    };
-  },
-  props: {},
-  methods: {
-    formatDate(date) {
-      return moment(date).format("YYYY/M/D");
-    },
+let superchats = await (await fetch('http://localhost:3000/api/superchat/all')).json();
 
-    loadScList() {
-      DataService.getAllSc()
-        .then((response) => {
-          this.scList = response.data;
-          console.log(this.scList);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  },
-  mounted() {
-    this.loadScList();
-  },
-};
+function formatDate(date) {
+  return moment(date).format("YYYY/M/D");
+}
 </script>
 
 <style>

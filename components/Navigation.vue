@@ -8,15 +8,15 @@
 
 <style lang="scss">
   nav {
-    font-size: 35px;
-  }
+    font-size: 32px;
 
-  .link {
-    color: inherit;
-    text-decoration: none;
+    >.link {
+      color: inherit;
+      text-decoration: none;
 
-    &:hover {
-      color: #7de2b8;
+      &:hover {
+        color: #7de2b8;
+      }
     }
   }
 </style>

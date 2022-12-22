@@ -16,11 +16,10 @@ let playlist = ref([{
   id: undefined,
   title: undefined
 }]);
-let timer;
+let timer: NodeJS.Timer;
 
-// TODO change to today
 async function updatePlaylist() {
-  playlist.value = await fetch('http://localhost:3000/api/playlist/all').then(res => res.json());
+  playlist.value = await (await fetch('http://localhost:3000/api/playlist/today')).json();
 }
 
 const todayDate = () => {
@@ -33,6 +32,9 @@ onMounted(() => {
   timer = setInterval(async() => {
     updatePlaylist();
   }, 5000)
+})
+onBeforeUnmount(() => {
+  clearInterval(timer);
 })
 </script>
 
