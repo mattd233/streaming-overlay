@@ -12,7 +12,7 @@
           <div class="price">{{ sc.total_price ? `￥${Math.floor(sc.total_price)}` : '' }}</div>
         </div>
         <div class="timer" v-if="countdownString !== '00:00:00'">
-          <i class="fa-regular fa-clock"></i>
+          <Icon class="icon" name="bi:stopwatch"/>
           &nbsp;{{ countdownString }}
         </div>
       </div>
@@ -244,6 +244,11 @@ onBeforeUnmount(() => {
 .price {
   display: block;
   margin-top: 2px;
+}
+
+.icon {
+  font-size: 16px;
+  margin-top: 3px;
 }
 
 .timer {
