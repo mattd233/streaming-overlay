@@ -1,10 +1,10 @@
 import { expireSuperchat } from '~~/server/db/superchat';
 
-export default defineEventHandler(async(event) => {
+export default defineEventHandler(async (event) => {
   try {
-    expireSuperchat(event.context.params.id);
-    return 'success' 
+    await expireSuperchat(event.context.params.id);
+    return 'success';
   } catch (error) {
-    return 'failed'
+    return 'failed';
   }
-})
+});

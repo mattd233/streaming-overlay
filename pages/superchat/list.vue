@@ -1,4 +1,4 @@
 <template>
-  <SuperchatList/>
+  <SuperchatList />
 </template>
 

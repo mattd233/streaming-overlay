@@ -1,19 +1,18 @@
-import { prisma } from ".";
-import moment from "moment";
+import { prisma } from '.';
 
-const getAllSuperchats = () => {
-  return prisma.superchat.findMany()
-}
+const getAllSuperchats = async () => {
+  return await prisma.superchat.findMany();
+};
 
-const getValidSuperchats = () => {
-  return prisma.superchat.findMany({
+const getValidSuperchats = async () => {
+  return await prisma.superchat.findMany({
     where: {
       expired: false
     }
-  })
-}
+  });
+};
 
-const expireSuperchat = async(id: number)  => {
+const expireSuperchat = async (id: number) => {
   await prisma.superchat.update({
     where: {
       id: Number(id)
@@ -21,11 +20,11 @@ const expireSuperchat = async(id: number)  => {
     data: {
       expired: true
     }
-  })
-}
+  });
+};
 
-const deleteAllSuperchats = async()  => {
+const deleteAllSuperchats = async () => {
   await prisma.superchat.deleteMany();
-}
+};
 
 export { getAllSuperchats, getValidSuperchats, expireSuperchat, deleteAllSuperchats };

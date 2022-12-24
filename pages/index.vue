@@ -1,5 +1,5 @@
 <template>
-  <Navigation/>
+  <Navigation />
 </template>
 
 <style lang="scss">

@@ -1,18 +1,18 @@
-import { prisma } from ".";
-import moment from "moment";
+import moment from 'moment';
+import { prisma } from '.';
 
-const getAllSongs = () => {
-  return prisma.song.findMany()
-}
+const getAllSongs = async () => {
+  return await prisma.song.findMany();
+};
 
-const getTodaySongs = () => prisma.song.findMany(
-  {
+const getTodaySongs = async () => {
+  return await prisma.song.findMany({
     where: {
       created_at: {
         gte: moment().startOf('day').toDate()
       }
     }
-  }
-)
+  });
+};
 
 export { getAllSongs, getTodaySongs };

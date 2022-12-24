@@ -1,3 +1,3 @@
 <template>
-  <Playlist/>
+  <Playlist />
 </template>

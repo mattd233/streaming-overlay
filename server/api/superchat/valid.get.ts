@@ -1,5 +1,5 @@
 import { getValidSuperchats } from '~~/server/db/superchat';
 
-export default defineEventHandler(async(event) => {
-  return getValidSuperchats();
-})
+export default defineEventHandler(async (_event) => {
+  return await getValidSuperchats();
+});

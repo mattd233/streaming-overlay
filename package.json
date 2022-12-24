@@ -4,6 +4,8 @@
     "build": "nuxt build",
     "dev": "nuxt dev -o",
     "generate": "nuxt generate",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "seed": "node prisma/seed.mjs"
