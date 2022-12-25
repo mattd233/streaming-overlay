@@ -12,13 +12,13 @@
           <div class="price">{{ sc.total_price ? `￥${Math.floor(sc.total_price)}` : '' }}</div>
         </div>
         <div class="timer" v-if="countdownString !== '00:00:00'">
-          <Icon class="icon" name="bi:stopwatch"/>
+          <Icon class="icon" name="bi:stopwatch" />
           &nbsp;{{ countdownString }}
         </div>
       </div>
       <div class="bottomBox" v-bind:style="calcTextBg(sc.total_price)">
         <p class="text">{{ sc.text ? sc.text : '' }}</p>
-    </div>
+      </div>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ async function loadSuperchats() {
     if (superchats.value.every((old) => old.id !== newSuperchat.id)) {
       superchats.value.unshift(newSuperchat);
     }
-});
+  });
 }
 
 async function expireSuperchat(id: number) {
@@ -66,31 +66,36 @@ async function updateSuperchats() {
   ) {
     expireSuperchat(head.id);
     return;
-  } else if (
+  }
+  else if (
     total_price < options.sclv3Price &&
     secondsElapsed > options.sclv2LastingTime
   ) {
     expireSuperchat(head.id);
     return;
-  } else if (
+  }
+  else if (
     total_price < options.sclv4Price &&
     secondsElapsed > options.sclv3LastingTime
   ) {
     expireSuperchat(head.id);
     return;
-  } else if (
+  }
+  else if (
     total_price < options.sclv5Price &&
     secondsElapsed > options.sclv4LastingTime
   ) {
     expireSuperchat(head.id);
     return;
-  } else if (
+  }
+  else if (
     total_price < options.sclv6Price &&
     secondsElapsed > options.sclv5LastingTime
   ) {
     expireSuperchat(head.id);
     return;
-  } else if (
+  }
+  else if (
     total_price >= options.sclv6Price &&
     secondsElapsed > options.sclv6LastingTime
   ) {
@@ -103,24 +108,24 @@ async function updateSuperchats() {
 
 // calculate the title background color of the superchat based on price
 function calcTitleBg(price: number | null) {
-  if (!price){
+  if (!price) {
     return background.sclv1TitleBg;
   }
   else if (price < options.sclv2Price) {
     return background.sclv1TitleBg;
-  } 
+  }
   else if (price < options.sclv3Price) {
     return background.sclv2TitleBg;
-  } 
+  }
   else if (price < options.sclv4Price) {
     return background.sclv3TitleBg;
-  } 
+  }
   else if (price < options.sclv5Price) {
     return background.sclv4TitleBg;
-  } 
+  }
   else if (price < options.sclv6Price) {
     return background.sclv5TitleBg;
-  } 
+  }
   else if (price >= options.sclv6Price) {
     return background.sclv6TitleBg;
   }
@@ -133,19 +138,19 @@ function calcTextBg(price: number | null) {
   }
   else if (price < options.sclv2Price) {
     return background.sclv1TextBg;
-  } 
+  }
   else if (price < options.sclv3Price) {
     return background.sclv2TextBg;
-  } 
+  }
   else if (price < options.sclv4Price) {
     return background.sclv3TextBg;
-  } 
+  }
   else if (price < options.sclv5Price) {
     return background.sclv4TextBg;
-  } 
+  }
   else if (price < options.sclv6Price) {
     return background.sclv5TextBg;
-  } 
+  }
   else if (price >= options.sclv6Price) {
     return background.sclv6TextBg;
   }

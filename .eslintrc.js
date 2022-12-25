@@ -30,12 +30,18 @@ const eslintRules = {
   'space-before-function-paren': ['error', { anonymous: 'never', asyncArrow: 'always', named: 'never' }],
   'space-in-parens': ['error'],
   'space-unary-ops': ['error'],
-  'template-curly-spacing': ['error', 'never']
+  'template-curly-spacing': ['error', 'never'],
+  'vue/multi-word-component-names': ['off', {
+    ignores: []
+  }]
 };
 
 module.exports = {
   root: true,
-  extends: ['@nuxtjs/eslint-config-typescript'],
+  extends: [
+    '@nuxtjs/eslint-config-typescript',
+    'plugin:vue/vue3-recommended'
+  ],
   rules: {
     ...eslintRules
   }
