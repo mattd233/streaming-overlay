@@ -215,35 +215,35 @@ onBeforeUnmount(() => {
 
 <style lang="scss">
 .sc {
-  width: 360px;
+  align-items: left;
   border-radius: 10px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  align-items: left;
+  width: 360px;
 }
 
 .upperBox {
-  height: 65px;
-  border-radius: 10px 10px 0 0;
   border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  color: #f2f2f2;
   display: flex;
   font-size: 14pt;
   font-weight: bold;
-  color: #f2f2f2;
+  height: 65px;
 }
 
 .avatar {
-  height: 46px;
-  width: auto;
-  display: inline-block;
-  border-radius: 50%;
-  padding: 10px;
   border: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  height: 46px;
+  padding: 10px;
+  width: auto;
 }
 
 .upperBoxContent {
-  width: 100%;
-  text-align: left;
   margin-top: 8px;
+  text-align: left;
+  width: 100%;
 }
 
 .price {
@@ -257,29 +257,29 @@ onBeforeUnmount(() => {
 }
 
 .timer {
-  display: flex;
   color: #e9e9e9;
-  margin-top: 40px;
-  margin-right: 5px;
+  display: flex;
   font-size: 12pt;
   font-weight: 500;
+  margin-right: 5px;
+  margin-top: 40px;
 }
 
 .bottomBox {
+  border-color: transparent;
+  border-radius: 0 0 10px 10px;
+  border-style: solid;
+  min-height: 65px;
   text-align: left;
   vertical-align: middle;
-  border-style: solid;
-  border-radius: 0 0 10px 10px;
-  border-color: transparent;
-  min-height: 65px;
 }
 
 .text {
+  color: rgb(65, 65, 65);
   font-size: 14pt;
+  font-weight: bold;
   margin-left: 20px;
   margin-right: 20px;
-  font-weight: bold;
-  color: rgb(65, 65, 65);
   word-wrap: break-word;
 }
 

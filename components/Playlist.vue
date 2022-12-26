@@ -42,8 +42,8 @@ onBeforeUnmount(() => {
 .playlist-component {
   align-items: center;
   display: flex;
-  height: 100vh;
   flex-direction: column;
+  height: 100vh;
   justify-content: center;
   width: 100vw;
 

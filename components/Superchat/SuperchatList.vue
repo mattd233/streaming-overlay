@@ -38,34 +38,34 @@ function formatDate(date) {
 
 .sc-table {
   border-collapse: collapse;
-  min-width: 800px;
-  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
+  max-width: 1000px;
+  min-width: 800px;
 }
 
 .sc-header {
+  background: rgb(244 148 57);
   color: white;
   font-weight: bold;
   text-align: left;
-  background: rgb(244 148 57);
 }
 
 .sc-item {
-  text-align: left;
   border-bottom: 1px solid #dddddd;
   font-size: 12pt;
+  text-align: left;
   vertical-align: middle;
 }
 
 .avatar {
-  height: 40px;
-  width: auto;
-  display: inline-block;
+  border: transparent;
   border-radius: 50%;
+  display: inline-block;
+  height: 40px;
   margin-left: 2px;
   margin-right: 2px;
-  border: transparent;
+  width: auto;
 }
 
 .sc-item:nth-of-type(odd) {
