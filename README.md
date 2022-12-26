@@ -1,42 +1,65 @@
-# Nuxt 3 Minimal Starter
-
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+# Streaming Overlay Nuxt3
 
 ## Setup
 
-Make sure to install the dependencies:
+### Installing the dependencies
 
-```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
+```
+yarn
 ```
 
-## Development Server
+### Setting up the ORM.
 
-Start the development server on http://localhost:3000
+The ORM used in this project is `prisma`.
 
-```bash
-npm run dev
+Firstly, run
+
+```
+npx prisma generate
 ```
 
-## Production
+This will generate prisma client from the `prisma/schema.prisma` file. This will generate all the prisma client models and methods used in `server/db` folder.
 
-Build the application for production:
+Then you need to set up a connection to the database. This is done by creating a `.env` file that contains a variable called `DATABASE_URL`.
 
-```bash
-npm run build
+Example:
+
+```
+DATABASE_URL="DATABASE_URL=postgresql://janedoe:mypassword@localhost:5432/mydb"
 ```
 
-Locally preview production build:
+For more info, check the official `prisma` [documentation](https://www.prisma.io/docs).
 
-```bash
-npm run preview
+If the database is new, you can generate the schema for it with:
+
+```
+npx prisma db push
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Development
+
+### Running the development server
+
+```
+yarn dev
+```
+
+### Linting
+
+```
+yarn lint
+```
+
+This will run eslint and stylelint for this project.
+
+### Build production ready app
+
+```
+yarn build
+```
+
+### Preview the built app
+
+```
+yarn preview
+```
