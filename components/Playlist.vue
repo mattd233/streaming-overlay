@@ -1,41 +1,43 @@
 <template>
   <div class="playlist-component">
-    <div class="header">今日歌单</div>
+    <div class="header">
+      今日歌单
+    </div>
     <span class="date">{{ todayDate() }}</span>
-    <div class="song" v-for="song in playlist" v-bind:key="song.id">
+    <div v-for="song in playlist" :key="song.id" class="song">
       <span>{{ song.title }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import moment from "moment";
+import moment from 'moment';
+const API_URL = import.meta.env.VITE_API_URL;
 
-
-let playlist = ref([{
+const playlist = ref([{
   id: undefined,
   title: undefined
 }]);
 let timer: NodeJS.Timer;
 
 async function updatePlaylist() {
-  playlist.value = await (await fetch('http://localhost:3000/api/playlist/today')).json();
+  playlist.value = await (await fetch(`${API_URL}/playlist/today`)).json();
 }
 
 const todayDate = () => {
-  let m = moment();
-  return m.format("YYYY/M/D");
-}
+  const m = moment();
+  return m.format('YYYY/M/D');
+};
 
 onMounted(() => {
   updatePlaylist();
-  timer = setInterval(async() => {
+  timer = setInterval(() => {
     updatePlaylist();
-  }, 5000)
-})
+  }, 5000);
+});
 onBeforeUnmount(() => {
   clearInterval(timer);
-})
+});
 </script>
 
 <style lang="scss">

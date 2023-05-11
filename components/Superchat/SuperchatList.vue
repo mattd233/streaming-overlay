@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="header">栗国 Superchat</h1>
+    <h1 class="header">
+      栗国 Superchat
+    </h1>
     <table class="sc-table">
       <tr class="sc-header">
         <th>昵称</th>
@@ -8,7 +10,7 @@
         <th>sc内容</th>
         <th>日期</th>
       </tr>
-      <tr v-for="sc in superchats" v-bind:key="sc.id" class="sc-item">
+      <tr v-for="sc in superchats" :key="sc.id" class="sc-item">
         <td>
           <!-- <img class="avatar" :src="`https://apic.douyucdn.cn/upload/${sc.avatar}_small.jpg`" alt="avatar" loading="lazy" />  -->
           <span class="nickname"> {{ sc.belongs_to_user }} </span>
@@ -23,11 +25,12 @@
 
 <script setup>
 import moment from 'moment';
+const API_URL = import.meta.env.VITE_API_URL;
 
-let superchats = await (await fetch('http://localhost:3000/api/superchat/all')).json();
+const superchats = await (await fetch(`${API_URL}/superchat/all`)).json();
 
 function formatDate(date) {
-  return moment(date).format("YYYY/M/D");
+  return moment(date).format('YYYY/M/D');
 }
 </script>
 

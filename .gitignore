@@ -5,6 +5,7 @@
 .cache
 .output
 .env
+ecosystem.config.js
 dist
 node_modules
 

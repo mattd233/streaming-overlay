@@ -31,6 +31,7 @@ import { superchat } from '.prisma/client';
 
 import { background } from './background';
 import { options } from './options';
+const API_URL = import.meta.env.VITE_API_URL;
 
 const superchats = ref<any[]>([]);
 const countdownString = ref('');
@@ -39,7 +40,7 @@ let loadTimer: NodeJS.Timer;
 let updateTimer: NodeJS.Timer;
 
 async function loadSuperchats(initialLoad = false) {
-  const data = await (await fetch('http://localhost:3000/api/superchat/valid')).json();
+  const data = await (await fetch(`${API_URL}/superchat/valid`)).json();
   // put all new sueprchats on top of the stack
   data.forEach((newSuperchat: superchat) => {
     if (superchats.value.every((old) => old.id !== newSuperchat.id)) {
@@ -64,10 +65,15 @@ function showNotification(superchat: superchat) {
 }
 
 async function expireSuperchat(id: number) {
-  await fetch(`http://localhost:3000/api/superchat/expire/${id}`);
+  await fetch(`${API_URL}/superchat/expire/${id}`);
 }
 
 function updateSuperchats() {
+  // skip if there is only one
+  if (superchats.value.length <= 1) {
+    return;
+  }
+
   const head = superchats.value.shift();
   if (!head || head.id === undefined) {
     return;
