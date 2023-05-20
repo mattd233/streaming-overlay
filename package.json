@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev -o",
+    "start": "nuxt dev -o",
     "generate": "nuxt generate",
     "lint": "eslint . --fix && stylelint \"{components,layouts,pages}/**/*.vue\" --color --fix",
     "preview": "nuxt preview",

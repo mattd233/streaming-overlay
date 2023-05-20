@@ -1,5 +1,8 @@
 <template>
-  <div class="scContainer">
+  <div v-if="loadError" class="message">
+    我们无法连接到后端。请检查您的互联网连接，或联系客服支持。
+  </div>
+  <div v-else>
     <div v-for="sc in superchats.slice(0, 1)" :key="sc.id" class="sc fadeInLeft">
       <div class="upperBox" :style="calcTitleBg(sc.total_price)">
         <img class="avatar" :src="`https://apic.douyucdn.cn/upload/${sc.avatar}_small.jpg`" alt="avatar" loading="lazy">
@@ -24,6 +27,11 @@
       </div>
     </div>
   </div>
+  <div v-if="!haveAudioPermission">
+    <button @click="haveAudioPermission = true" class="audioButton">
+      点击来允许播放声音
+    </button>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -31,37 +39,59 @@ import { superchat } from '.prisma/client';
 
 import { background } from './background';
 import { options } from './options';
+// @ts-ignore
+import notificationSound from 'assets/notification.mp3';
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 const superchats = ref<any[]>([]);
 const countdownString = ref('');
+const haveAudioPermission = ref(false);
+const loadError = ref(false);
+
 let coundownTimer: NodeJS.Timer;
 let loadTimer: NodeJS.Timer;
 let updateTimer: NodeJS.Timer;
 
+
 async function loadSuperchats(initialLoad = false) {
-  const data = await (await fetch(`${API_URL}/superchat/valid`)).json();
-  // put all new sueprchats on top of the stack
-  data.forEach((newSuperchat: superchat) => {
-    if (superchats.value.every((old) => old.id !== newSuperchat.id)) {
-      superchats.value.unshift(newSuperchat);
-      if (!initialLoad) {
-        showNotification(newSuperchat);
+  try {
+    const data = await (await fetch(`${API_URL}/superchat/valid`)).json();
+    loadError.value = false;
+    // put all new sueprchats on top of the stack
+    data.forEach((newSuperchat: superchat) => {
+      if (superchats.value.every((old) => old.id !== newSuperchat.id)) {
+        superchats.value.unshift(newSuperchat);
+        if (!initialLoad) {
+          showNotification(newSuperchat);
+        }
       }
-    }
-  });
+    });
+  } catch (error) {
+    loadError.value = true;
+    console.log(error);
+  }
 }
 
 function showNotification(superchat: superchat) {
-  const title = '你有一条新的sc';
-  const options = {
-    body: `${superchat.belongs_to_user} 发送了一条新的sc`
-  };
+  try {
+    // play sound
+    const audio = new Audio(notificationSound);
+    audio.play();
 
-  const notification = new Notification(title, options);
-  setTimeout(() => {
-    notification.close();
-  }, 5000);
+    // show webAPI notification (doesn't work with http)
+    const title = '你有一条新的sc';
+    const options = {
+      body: `${superchat.belongs_to_user} 发送了一条新的sc`
+    };
+
+    const notification = new Notification(title, options);
+    setTimeout(() => {
+      notification.close();
+    }, 5000);
+  } catch (error) {
+    // do nothing
+  }
 }
 
 async function expireSuperchat(id: number) {
@@ -203,7 +233,9 @@ function setCountdown() {
 }
 
 onMounted(() => {
-  Notification.requestPermission();
+  Notification.requestPermission().then((permission) => {
+    console.log(permission);
+  });
   loadSuperchats(true);
   // load from backend every loadInterval seconds
   loadTimer = setInterval(loadSuperchats, options.loadInterval * 1000);
@@ -220,6 +252,40 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss">
+.audioButton {
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 200px;
+  min-height: 40px;
+  padding: 14px 16px;
+  text-align: center;
+}
+
+.audioButton:hover,
+.audioButton:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.button-24:active {
+  opacity: .5;
+}
+
+.message {
+  display: flex;
+  font-size: 20px;
+  width: 360px;
+}
+
 .sc {
   align-items: left;
   border-radius: 10px;
