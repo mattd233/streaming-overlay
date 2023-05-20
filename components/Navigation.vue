@@ -1,8 +1,14 @@
 <template>
   <nav>
-    <nuxt-link to="/superchat" class="link">Superchat</nuxt-link> |
-    <nuxt-link to="/superchat/list" class="link">Superchat History</nuxt-link> |
-    <nuxt-link to="/playlist" class="link">点歌</nuxt-link>
+    <nuxt-link to="/superchat" class="link">
+      Superchat
+    </nuxt-link> |
+    <nuxt-link to="/superchat/list" class="link">
+      Superchat History
+    </nuxt-link> |
+    <nuxt-link to="/playlist" class="link">
+      点歌
+    </nuxt-link>
   </nav>
 </template>
 

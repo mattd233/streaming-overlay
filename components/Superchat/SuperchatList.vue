@@ -93,7 +93,7 @@ function formatDate(date) {
 }
 </script>
 
-<style>
+<style lang="scss">
 .banner {
   background: #FF4742;
   color: white;
@@ -114,7 +114,7 @@ function formatDate(date) {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
-  max-width: 1000px;
+  max-width: 1200px;
   min-width: 800px;
 }
 
@@ -123,6 +123,14 @@ function formatDate(date) {
   color: white;
   font-weight: bold;
   text-align: left;
+
+  >th:nth-child(1) {
+    min-width: 150px;
+  }
+
+  >th:nth-child(2) {
+    min-width: 75px;
+  }
 }
 
 .sc-item {
