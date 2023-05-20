@@ -27,11 +27,6 @@
       </div>
     </div>
   </div>
-  <div v-if="!haveAudioPermission">
-    <button @click="haveAudioPermission = true" class="audioButton">
-      点击来允许播放声音
-    </button>
-  </div>
 </template>
 
 <script lang="ts" setup>
@@ -39,58 +34,30 @@ import { superchat } from '.prisma/client';
 
 import { background } from './background';
 import { options } from './options';
-// @ts-ignore
-import notificationSound from 'assets/notification.mp3';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const superchats = ref<any[]>([]);
 const countdownString = ref('');
-const haveAudioPermission = ref(false);
 const loadError = ref(false);
 
 let coundownTimer: NodeJS.Timer;
 let loadTimer: NodeJS.Timer;
 let updateTimer: NodeJS.Timer;
 
-
-async function loadSuperchats(initialLoad = false) {
+async function loadSuperchats() {
   try {
     const data = await (await fetch(`${API_URL}/superchat/valid`)).json();
     loadError.value = false;
-    // put all new sueprchats on top of the stack
+    // put all new superchats on top of the stack
     data.forEach((newSuperchat: superchat) => {
       if (superchats.value.every((old) => old.id !== newSuperchat.id)) {
         superchats.value.unshift(newSuperchat);
-        if (!initialLoad) {
-          showNotification(newSuperchat);
-        }
       }
     });
   } catch (error) {
     loadError.value = true;
     console.log(error);
-  }
-}
-
-function showNotification(superchat: superchat) {
-  try {
-    // play sound
-    const audio = new Audio(notificationSound);
-    audio.play();
-
-    // show webAPI notification (doesn't work with http)
-    const title = '你有一条新的sc';
-    const options = {
-      body: `${superchat.belongs_to_user} 发送了一条新的sc`
-    };
-
-    const notification = new Notification(title, options);
-    setTimeout(() => {
-      notification.close();
-    }, 5000);
-  } catch (error) {
-    // do nothing
   }
 }
 
@@ -233,10 +200,7 @@ function setCountdown() {
 }
 
 onMounted(() => {
-  Notification.requestPermission().then((permission) => {
-    console.log(permission);
-  });
-  loadSuperchats(true);
+  loadSuperchats();
   // load from backend every loadInterval seconds
   loadTimer = setInterval(loadSuperchats, options.loadInterval * 1000);
   // switch sc every switchInterval seconds

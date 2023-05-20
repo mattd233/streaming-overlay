@@ -12,7 +12,7 @@ const eslintRules = {
   'keyword-spacing': ['error', { overrides: { catch: { after: true } } }],
   'lines-between-class-members': 'off',
   'no-await-in-loop': 'off',
-  'no-console': ['error'],
+  'no-console': 'off',
   'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 0, maxEOF: 1 }],
   'no-trailing-spaces': ['error'],
   'no-unused-vars': ['error', { args: 'none' }],
